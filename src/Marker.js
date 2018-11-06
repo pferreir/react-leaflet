@@ -6,6 +6,7 @@ import React from 'react'
 import { LeafletProvider, withLeaflet } from './context'
 import MapLayer from './MapLayer'
 import type { LatLng, MapLayerProps } from './types'
+import {isEqual} from 'lodash';
 
 type LeafletElement = LeafletMarker
 type Props = {
@@ -24,7 +25,7 @@ class Marker extends MapLayer<LeafletElement, Props> {
   }
 
   updateLeafletElement(fromProps: Props, toProps: Props) {
-    if (toProps.position !== fromProps.position) {
+    if (!isEqual(toProps.position, fromProps.position)) {
       this.leafletElement.setLatLng(toProps.position)
     }
     if (toProps.icon !== fromProps.icon) {
